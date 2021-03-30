@@ -12,10 +12,10 @@ namespace MusicLibraryWebAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class MusicController : ControllerBase
+    public class SongController : ControllerBase
     {
         ApplicationDbContext _context;
-        public MusicController(ApplicationDbContext context)
+        public SongController(ApplicationDbContext context)
         {
             _context = context;
         }
@@ -27,25 +27,27 @@ namespace MusicLibraryWebAPI.Controllers
         //}
 
         public IActionResult Get()
-        { 
-            return Ok();
+        {
+            var song = _context.Song;
+            
+            return _context.GetType(song);
         }
 
 
         // GET api/<MusicController>/5
-        //[HttpGet("{id}")]
-        //public string Get(int id)
-        //{
-        //    return "value";
-        //}
+        [HttpGet("{id}")]
+        public string Get(int id)
+        {
+            return "value";
+        }
 
-        // POST api/<MusicController>
+        //POST api/<MusicController>
         [HttpPost]
-        public IActionResult Post([FromBody] Music music)
+        public IActionResult Post([FromBody] Song song)
         {
             try
             {
-                _context.Music.Add(music);
+                _context.Song.Add(song);
                 _context.SaveChanges();
                 return Ok();
             }
@@ -56,15 +58,15 @@ namespace MusicLibraryWebAPI.Controllers
         }
 
         // PUT api/<MusicController>/5
-        //[HttpPut("{id}")]
-        //public void Put(int id, [FromBody] string value)
-        //{
-        //}
+        [HttpPut("{id}")]
+        public void Put(int id, [FromBody] string value)
+        {
+        }
 
-        //// DELETE api/<MusicController>/5
-        //[HttpDelete("{id}")]
-        //public void Delete(int id)
-        //{
-        //}
+        // DELETE api/<MusicController>/5
+        [HttpDelete("{id}")]
+        public void Delete(int id)
+        {
+        }
     }
 }
