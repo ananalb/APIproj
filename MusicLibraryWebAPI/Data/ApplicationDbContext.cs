@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using MusicLibraryWebAPI.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,5 +13,6 @@ namespace MusicLibraryWebAPI.Data
         {
 
         }
+        public DbSet<Music> Music;
     }
 }
