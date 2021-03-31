@@ -50,7 +50,7 @@ namespace MusicLibraryWebAPI.Controllers
             {
                 _context.Songs.Add(song);
                 _context.SaveChanges();
-                return Ok();
+                return Created("api/Song", song);
             }
             catch(Exception err)
             {
