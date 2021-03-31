@@ -39,8 +39,6 @@ namespace MusicLibraryWebAPI.Controllers
         public IActionResult Get(int id)
         {
             var songs = _context.Songs.Where(e => e.Id == id).FirstOrDefault();
-            //query the db for the song with the id of our id parameter
-            //pass found song into ok()
             return Ok(songs);
         }
 
@@ -62,14 +60,38 @@ namespace MusicLibraryWebAPI.Controllers
 
         // PUT api/<MusicController>/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public IActionResult Put(int id, [FromBody] Song song)
         {
+            try
+            {
+                _context.Songs.Update(song);
+                _context.SaveChanges();
+                return Ok();
+            }
+            catch (Exception err)
+            {
+                return BadRequest(err);
+            }
         }
+
+
+
+
 
         // DELETE api/<MusicController>/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
+        public IActionResult Delete(int id, Song song)
+        { 
+            try
+            {
+                _context.Songs.Remove(song);
+                _context.SaveChanges();
+                return Ok();
+            }
+            catch (Exception err)
+            {
+                return BadRequest(err);
+            }
         }
     }
 }
