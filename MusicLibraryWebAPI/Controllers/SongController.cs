@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using MusicLibraryWebAPI.Data;
 using MusicLibraryWebAPI.Models;
 using System;
@@ -15,30 +16,31 @@ namespace MusicLibraryWebAPI.Controllers
     public class SongController : ControllerBase
     {
         ApplicationDbContext _context;
+
         public SongController(ApplicationDbContext context)
         {
             _context = context;
         }
         // GET: api/<MusicController>
-        [HttpGet]
+        //[HttpGet]
         //public IEnumerable<string> Get()
         //{
         //    return new string[] { "value1", "value2" };
         //}
-
+        [HttpGet]
         public IActionResult Get()
         {
-            var song = _context.Song;
-            
-            return _context.GetType(song);
+            var song = _context.Songs;
+            return Ok(song);
+            //return _context.GetType(song);
         }
-
-
         // GET api/<MusicController>/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public IActionResult Get(int id)
         {
-            return "value";
+            //query the db for the song with the id of our id parameter
+            //pass found song into ok()
+            return Ok();
         }
 
         //POST api/<MusicController>
@@ -47,7 +49,7 @@ namespace MusicLibraryWebAPI.Controllers
         {
             try
             {
-                _context.Song.Add(song);
+                _context.Songs.Add(song);
                 _context.SaveChanges();
                 return Ok();
             }

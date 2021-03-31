@@ -14,11 +14,7 @@ namespace MusicLibraryWebAPI.Data
         {
 
         }
-        public DbSet<Song> Song;
 
-        internal IActionResult GetType(DbSet<Song> music)
-        {
-            throw new NotImplementedException();
-        }
+        public DbSet<Song> Songs { get; set; }      
     }
 }
