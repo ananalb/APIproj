@@ -30,17 +30,18 @@ namespace MusicLibraryWebAPI.Controllers
         [HttpGet]
         public IActionResult Get()
         {
-            var song = _context.Songs;
-            return Ok(song);
+            var songs = _context.Songs;
+            return Ok(songs);
             //return _context.GetType(song);
         }
         // GET api/<MusicController>/5
         [HttpGet("{id}")]
         public IActionResult Get(int id)
         {
+            var songs = _context.Songs.Where(e => e.Id == id).FirstOrDefault();
             //query the db for the song with the id of our id parameter
             //pass found song into ok()
-            return Ok();
+            return Ok(songs);
         }
 
         //POST api/<MusicController>
@@ -53,9 +54,9 @@ namespace MusicLibraryWebAPI.Controllers
                 _context.SaveChanges();
                 return Ok();
             }
-            catch
+            catch(Exception err)
             {
-                return BadRequest();
+                return BadRequest(err);
             }
         }
 
